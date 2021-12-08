@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import "./ComputeLease.sol";
 
-
 contract MinerPool {
     
     struct Miner {
@@ -13,7 +12,7 @@ contract MinerPool {
     
     mapping(address => Miner) public minerStack;
     
-    address[] activeLeases;
+    mapping(address => ComputeLease) public activeLeases;
     
     
     event LeaseCreated(address indexed newLease, bytes data);
@@ -27,7 +26,7 @@ contract MinerPool {
     
     // Driver creates and assigns a lease to a miner
     function createLease(string memory _packageURL, address _miner, uint16 _duration) payable public {
-        address newLease = address(new ComputeLease(_packageURL, msg.sender, _miner, _duration, address(this)));
+        ComputeLease newLease = new ComputeLease(_packageURL, msg.sender, _miner, _duration, address(this));
         activeLeases.push(newLease);
         
         //(bool sent, bytes memory data) = newLease.call{value: msg.value}("");
