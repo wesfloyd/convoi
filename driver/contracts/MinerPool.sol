@@ -27,10 +27,10 @@ contract MinerPool {
     // Driver creates and assigns a lease to a miner
     function createLease(string memory _packageURL, address _miner, uint16 _duration) payable public {
         ComputeLease newLease = new ComputeLease(_packageURL, msg.sender, _miner, _duration, address(this));
-        activeLeases.push(newLease);
+        activeLeases[address(newLease)] = newLease;
         
         //(bool sent, bytes memory data) = newLease.call{value: msg.value}("");
-        (bool sent, bytes memory data) = newLease.call{value: msg.value}("");
+        (bool sent, bytes memory data) = address(newLease).call{value: msg.value}("");
         require(sent, "Failed to send Ether. CallData:");
         
         emit LeaseCreated(address(newLease), data);

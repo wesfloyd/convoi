@@ -37,9 +37,15 @@ contract ComputeLease {
     
     // Todo how to limit checkpoints from Miner to once every X minutes?
     function minerCheckpoint() view public {
-        require (msg.sender == driverAddress, "Checkpoint caller address not equal to driver address");
+        require (msg.sender == minerAddress, "Checkpoint caller address not equal to driver address");
         
         // TODO: perform checkpointing
+
+    }
+
+    function endLease() view public {
+        require (msg.sender == driverAddress, "Checkpoint caller address not equal to driver address");
+        
 
     }
        
