@@ -24,8 +24,11 @@ contract MinerPool {
         minerStack[msg.sender] =  Miner(msg.sender, 0);
     }
     
+    /**
     // Driver creates and assigns a lease to a miner
     function createLease(string memory _packageURL, address _miner, uint16 _duration) payable public {
+        
+        
         ComputeLease newLease = new ComputeLease(_packageURL, msg.sender, _miner, _duration, address(this));
         activeLeases[address(newLease)] = newLease;
         
@@ -35,12 +38,16 @@ contract MinerPool {
         
         emit LeaseCreated(address(newLease), data);
     }
+     */
 
     
     // ComputeLease reports change in miner reputation
-    function reportMinerReputation(address _miner, bool positive) public{
+    function reportMinerReputation(address _computeLease, address _miner, bool positive) public{
         // The ComputeLease contract should report reputation positive if 
         // compute lease is fully paid and driver has positive outcome
+        require(activeLeases[_computeLease].driverAddress() == msg.sender, 
+        "Sender address not equal to driverAddress for the compute lease"); 
+
         if (positive)
             minerStack[_miner].minerReputation += 1;
         else minerStack[_miner].minerReputation -= 1;
