@@ -29,6 +29,10 @@ contract ComputeLease {
     
     event LeaseInitiated(address indexed lease, bytes data);
     
+    function getStatus() public view returns (Status) {
+        return status;
+    }
+
     // Miner confirms lease acceptance and begins hosting
     function minerAcceptLease() payable public{
         require (msg.sender == minerAddress, "Sender address not equal to minerAddress");

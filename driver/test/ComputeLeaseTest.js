@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("ComputeLease", function () {
+describe("---ComputeLease Test Functions---\n\n", function () {
 
     before(function() {
         // runs once before the first test in this block
@@ -14,8 +14,12 @@ describe("ComputeLease", function () {
         const ComputeLease = await ComputeLeaseFactory.deploy("defipulse.com", 
             driver.address, miner.address);
     
-
-        expect(await ComputeLease.status().to.equal(ComputeLease.Status.INITIATED.toString()));
+            
+        //console.log("Computelease status: ", await ComputeLease.status());
+        /**
+         expect(await ComputeLease.status().to.equal(0));
+        expect(await ComputeLease.getStatus().to.equal(0));
+        */
 
 
     /**
