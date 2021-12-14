@@ -5,21 +5,35 @@ describe("---ComputeLease Test Functions---\n\n", function () {
 
     before(function() {
         // runs once before the first test in this block
-      })
-    
-    it("Should create a compute lease and initiate it", async function () {
-
         const [driver, miner] = await ethers.getSigners();
         const ComputeLeaseFactory = await ethers.getContractFactory("ComputeLease");
         const ComputeLease = await ComputeLeaseFactory.deploy("defipulse.com", 
             driver.address, miner.address);
+      })
     
-            
+    it("Should create a compute lease and deploy it", async function () {
+
+        
+    
         //console.log("Computelease status: ", await ComputeLease.status());
-        /**
-         expect(await ComputeLease.status().to.equal(0));
-        expect(await ComputeLease.getStatus().to.equal(0));
-        */
+        
+        expect(await ComputeLease.status().to.equal(0));
+        //expect(await ComputeLease.getStatus().to.equal(0));
+    });
+    
+    it("Should checkpoint an existing lease a compute lease and miner should get paid", async function () {
+        
+        // Wait 20 seconds
+        this.timeout(20000);
+
+        // TODO calculate network and miner balances before
+
+        ComputeLease.minerCheckpoint();
+
+        // TODO add an expect test to validate payments
+        // Check balances after
+        
+    });
 
 
     /**
@@ -48,5 +62,5 @@ describe("---ComputeLease Test Functions---\n\n", function () {
     */
 
 
-    });
+    
 });
