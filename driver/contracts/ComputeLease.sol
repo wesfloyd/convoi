@@ -11,21 +11,22 @@ contract ComputeLease {
         STOPPED
     }
 
-    address public driverAddress;
-    address public minerAddress;
+    address payable public driverAddress;
+    address payable public minerAddress;
     address constant public networkFeeAddress = 0x3e8411606Eb6D4587f6890541B80E7Ba41B92f9a;
-    string containerURL;
     uint64 private pricePerHourGWEI;
     Status public status;
     uint256 public lastCheckpointTime;
+    string private containerStorageURL;
+    string private containerRunningURL;
     uint256 private constant waitTime = 20 seconds;
 
     // address private minerPoolAddress;
     
     
     // Invoked by the Driver
-    constructor(string memory _containerURL, address _driver, address _miner) {
-        containerURL = _containerURL;
+    constructor(string memory _containerStorageURL, address payable _driver,  address payable _miner) payable {
+        containerStorageURL = _containerStorageURL;
         minerAddress = _miner;
         driverAddress = _driver;    
         status = Status.INITIATED;
@@ -53,6 +54,8 @@ contract ComputeLease {
         (bool sent, bytes memory data) = minerAddress.call{value: msg.value}("");
         require(sent, "Failed to initiateLease at send Ether to miner:");
         
+        containerRunningURL;
+
         status = Status.RUNNING;
         emit LeaseStarted(address(this), data);
     }

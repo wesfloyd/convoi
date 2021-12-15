@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./ComputeLease.sol";
 
-contract MinerPool {
+contract ComputePool {
     
     struct Miner {
         address minerAddress;
@@ -29,6 +29,8 @@ contract MinerPool {
     function createLease(string memory _packageURL, address _miner, uint16 _duration) payable public {
         
         
+        Todo review how to send funds with contract creation https://stackoverflow.com/a/62195761
+
         ComputeLease newLease = new ComputeLease(_packageURL, msg.sender, _miner, _duration, address(this));
         activeLeases[address(newLease)] = newLease;
         
@@ -37,6 +39,8 @@ contract MinerPool {
         require(sent, "Failed to send Ether. CallData:");
         
         emit LeaseCreated(address(newLease), data);
+
+
     }
      */
 

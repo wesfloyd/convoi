@@ -1,26 +1,40 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const provider = waffle.provider;
 
-describe("---ComputeLease Test Functions---\n\n", function () {
+describe("---ComputeLease Test Functions---\n\n", async function () {
 
-    before(function() {
-        // runs once before the first test in this block
-        const [driver, miner] = await ethers.getSigners();
-        const ComputeLeaseFactory = await ethers.getContractFactory("ComputeLease");
-        const ComputeLease = await ComputeLeaseFactory.deploy("defipulse.com", 
-            driver.address, miner.address);
-      })
+    let driver, miner;
+    let ComputeLeaseFactory;
+    let ComputeLease;
+
+    before(async function() {
+        [driver, miner] = await ethers.getSigners();
+        ComputeLeaseFactory = await ethers.getContractFactory("ComputeLease");
+        ComputeLease = await ComputeLeaseFactory.deploy("defipulse.com", 
+            driver.address, miner.address, { value: 100 });
+    })
     
-    it("Should create a compute lease and deploy it", async function () {
+    it("Should validate the contract lease was created and deployed properly", async function () {
 
+        expect(await ComputeLease.status() == 0);
         
-    
-        //console.log("Computelease status: ", await ComputeLease.status());
-        
-        expect(await ComputeLease.status().to.equal(0));
-        //expect(await ComputeLease.getStatus().to.equal(0));
+        console.log("Contract value: ", String(await provider.getBalance(ComputeLease.address)));
+        //expect(await ComputeLease.value.to.equal(100);
+
+        //console.log("Last checkpoint time: ", String(await ComputeLease.lastCheckpointTime()));
+        //console.log("Now: ", new Date().getTime() );
+        // Todo add test for checkpoint time
+
     });
     
+    it("Miner accept lease", async function () {
+
+
+        // TODO add an expect test to validate payments
+        
+    });
+
     it("Should checkpoint an existing lease a compute lease and miner should get paid", async function () {
         
         // Wait 20 seconds
