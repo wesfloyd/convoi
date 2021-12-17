@@ -8,6 +8,8 @@ contract ComputePool {
     struct Miner {
         address minerAddress;
         int8 minerReputation;
+        uint8 minerSlots;
+        // TODO: add price per hour in gwei
     }
     
     mapping(address => Miner) public minerStack;
@@ -19,9 +21,9 @@ contract ComputePool {
     event MinerRegistered();
     event MinerReputationReported();
     
-    function registerNewMiner() public{
+    function registerNewMiner(uint8 _slots) public{
         // todo register message.sender
-        minerStack[msg.sender] =  Miner(msg.sender, 0);
+        minerStack[msg.sender] =  Miner(msg.sender, 0, _slots);
     }
     
     /**
