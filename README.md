@@ -2,6 +2,10 @@
     
 >“Enabling the Web 3.0 ecosystem to enjoy all the conveniences of modern Web 2.0 application development among a decentralized pool of compute”
 
+## Why Decentralized Compute?
+[Please see this document for full details on the key reasons for a decentralized compute solution](https://docs.google.com/document/d/1NMXgbRGr5BMrT4cSzKl9jtEFE7pU__K6xzWqgfIKd_Y/edit?usp=sharing) 
+
+
 ## What is Convoi?
 Overview: Convoi is an Ethereum smart contract based network of *miners* serving available compute capacity to users (Drivers) who wish to run containers on a fully decentralized network. Drivers initiate a smart contract with the chosen miner(s) to host their container workload for a specified time in exchange for a fee in ETH.  
   
